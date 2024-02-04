@@ -36,7 +36,7 @@ public class Index {
                     e.printStackTrace();
                 }
 
-                // Save the Index information to a file in the constructor
+                // Save to file
                 saveToFile();
 
             }
@@ -82,7 +82,7 @@ public class Index {
         operators = check(operators);
 
         byte [] nots = new byte [words.length];
-        for(int i=0;i<nots.length;i++){
+        for(int i=0;i < nots.length; i++){
             if(words[i].charAt(0)==not){
                 words[i] = words[i].replaceAll("!","");
                 nots[i]=1;
