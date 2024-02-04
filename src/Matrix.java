@@ -42,6 +42,9 @@ public class Matrix {
         for (int i = 0; i < doc + 1; i++) {
             doc_names[i] = files[i].getName();
         }
+
+        // Save to file
+        saveToFile();
     }
     //checking and adding words
     public void addWords(int doc, String line){
@@ -184,6 +187,32 @@ public class Matrix {
             res[i] = arr[i];
         }
         return res;
+    }
+
+
+    /**SAVE INTO MATRIX.TXT FILE*/
+    public void saveToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("matrix.txt"))) {
+            ArrayList<String> res_list = new ArrayList<>(matrix.keySet());
+            Collections.sort(res_list);
+
+            for (int i = 1; i < doc_names.length + 1; i++) {
+                writer.write(i + " ");
+            }
+            writer.newLine();
+
+            for (String s : res_list) {
+                for (int i = 0; i < doc_names.length; i++) {
+                    writer.write(matrix.get(s)[i] + " ");
+                }
+                writer.write(s + " ");
+                writer.newLine();
+            }
+            System.out.println("Matrix saved to matrix.txt");
+        } catch (IOException e) {
+            System.out.println("Error saving matrix to file: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }
