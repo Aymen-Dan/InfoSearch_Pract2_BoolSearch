@@ -13,8 +13,8 @@ public class Main {
         Index ind = new Index("C:\\Users\\armad\\OneDrive\\Desktop\\IntelliJ IDEA Community Edition 2021.1.1\\IdeaProjects\\InfoSearch_Pract2_BoolSearch\\src\\res");
         time_i = System.nanoTime()-time_i;
 
-        System.out.println("\n1.Show matrix;\n2.Show index;\n3 - Show matrix in file;\n4 - Show index in file;\n5.Show time for matrix and time for index" +
-                ";\n5.Search matrix;\n6.Search input;\n-1.Exit\n");
+        System.out.println("\n1.Print matrix;\n2 - Print index;\n3. Show matrix in file;\n4 - Show index in file;\n5.Show time for matrix and time for index" +
+                ";\n6 - Search matrix;\n7 - Search index;\n-1.Exit\n");
         int i= in.nextInt();
 
         while(i!=-1) {
@@ -48,12 +48,12 @@ public class Main {
                     in.nextLine();
                     input = in.nextLine();
                     ArrayList<Integer> res_list = ind.search(input);
-                    System.out.printf(input+": "+res_list+"\n");
+                    System.out.printf(input+": " + res_list + "\n");
                     break;
                 default:
                     System.out.println("Wrong format");
             }
-            System.out.println("\n1.Show matrix;\n2.Show index;\n3.Show time for matrix;\n4.Show time for index" +
+            System.out.println("\n1.Print matrix;\n2 - Print index;\n3.Show matrix in file;\n4.Show index in file;\n5.Show time for matrix and time for index" +
                     ";\n5.Search matrix;\n6.Search input;\n-1.Exit\n");
             i = in.nextInt();
         }
