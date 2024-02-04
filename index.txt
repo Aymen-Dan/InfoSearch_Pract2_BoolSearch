@@ -1,0 +1,7 @@
+ham 1 2 
+hamlet 1 
+hamster 1 
+ocelot 1 2 
+ocelots 2 
+othello 1 2 
+prince 2 
