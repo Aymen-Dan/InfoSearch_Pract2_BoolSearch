@@ -6,15 +6,17 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Scanner in = new Scanner(System.in);
 
-        long time_m =  System.nanoTime();
+        long timeM =  System.nanoTime();
         Matrix m = new Matrix("C:\\Users\\armad\\OneDrive\\Desktop\\IntelliJ IDEA Community Edition 2021.1.1\\IdeaProjects\\InfoSearch_Pract2_BoolSearch\\src\\res");
-        time_m = System.nanoTime()-time_m;
-        long time_i =  System.nanoTime();
-        Index ind = new Index("C:\\Users\\armad\\OneDrive\\Desktop\\IntelliJ IDEA Community Edition 2021.1.1\\IdeaProjects\\InfoSearch_Pract2_BoolSearch\\src\\res");
-        time_i = System.nanoTime()-time_i;
+        long endTimeM = System.nanoTime();
+        long elapsedTimeM = endTimeM - timeM; //final time it took
 
-        System.out.println("\n1.Print matrix;\n2 - Print index;\n3. Show matrix in file;\n4 - Show index in file;\n5.Show time for matrix and time for index" +
-                ";\n6 - Search matrix;\n7 - Search index;\n-1.Exit\n");
+        long timeI =  System.nanoTime();
+        Index ind = new Index("C:\\Users\\armad\\OneDrive\\Desktop\\IntelliJ IDEA Community Edition 2021.1.1\\IdeaProjects\\InfoSearch_Pract2_BoolSearch\\src\\res");
+        long endTimeI = System.nanoTime();
+        long elapsedTimeI = endTimeI - timeI;
+
+        System.out.println("\n1.Print matrix;\n2 - Print index;\n3.Show matrix in file;\n4.Show index in file;\n5 - Show time for matrix and time for index;\n6 - Search matrix;\n7 - Search input;\n-1 - Exit\n");
         int i= in.nextInt();
 
         while(i!=-1) {
@@ -32,8 +34,8 @@ public class Main {
                     System.out.println("INDEX FILE OPENING IN PROGRESS");
                     break;
                 case 5:
-                    System.out.println("time: " + time_m / 1000000000 + " s");
-                    System.out.println("time: " + time_i / 1000000000 + " s");
+                    System.out.println("Time to build matrix: " + elapsedTimeM + " ns, or " + elapsedTimeM / 1_000_000.0 + " ms, or " + elapsedTimeM / 1_000_000_000.0 + " s");
+                    System.out.println("Time to build index: " + elapsedTimeI + " ns, or " + elapsedTimeI / 1_000_000.0 + " ms, or " + elapsedTimeI / 1_000_000_000.0 + " s");
                     break;
                 case 6:
                     System.out.println("Enter:");
@@ -53,8 +55,8 @@ public class Main {
                 default:
                     System.out.println("Wrong format");
             }
-            System.out.println("\n1.Print matrix;\n2 - Print index;\n3.Show matrix in file;\n4.Show index in file;\n5.Show time for matrix and time for index" +
-                    ";\n5.Search matrix;\n6.Search input;\n-1.Exit\n");
+            System.out.println("\n1.Print matrix;\n2 - Print index;\n3.Show matrix in file;\n4.Show index in file;\n5 - Show time for matrix and time for index;\n6 - Search matrix;\n7 - Search input;\n-1 - Exit\n");
+
             i = in.nextInt();
         }
 
