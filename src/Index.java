@@ -35,13 +35,11 @@ public class Index {
                     System.out.println("Error reading file: " + file.getName());
                     e.printStackTrace();
                 }
-
-                // Save to file
-                saveToFile();
-
             }
         }
 
+            // Save to file
+            saveToFile();
     }
 
     //checking and adding words
