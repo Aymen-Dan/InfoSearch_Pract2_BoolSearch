@@ -46,9 +46,9 @@ public class Index {
     public void addWords(int doc, String line){
         if(line.equals("")) return;
         String[] temp = line.split("[^a-zA-Z0-9_]+");
-        for(int i=0;i<temp.length;i++){
-            if(temp[i].matches("[a-zA-Z0-9_]+")) {
-                addWord(temp[i].toLowerCase(),doc);
+        for (String s : temp) {
+            if (s.matches("[a-zA-Z0-9_]+")) {
+                addWord(s.toLowerCase(), doc);
             }
         }
     }
@@ -131,9 +131,7 @@ public class Index {
                 }
                 res = ans;
             } else if (operators[i-1].equals("∨")){
-                for(int j : res){
-                    ans.add(j);
-                }
+                ans.addAll(res);
                 for(int j : temp){
                     if(!ans.contains(j)) ans.add(j);
                 }
@@ -151,9 +149,9 @@ public class Index {
     private String [] check(String [] arr){
         ArrayList<String> temp=new ArrayList();
         int j=0;
-        for(int i=0;i<arr.length;i++){
-            if(arr[i].equals("&") || arr[i].equals("∨")){
-                temp.add(j,arr[i]);
+        for (String s : arr) {
+            if (s.equals("&") || s.equals("∨")) {
+                temp.add(j, s);
                 j++;
             }
         }
