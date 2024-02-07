@@ -76,22 +76,23 @@ public class Matrix {
     }
 
     //to string
-    public void print() throws IOException {
-        OutputStream out = new BufferedOutputStream( System.out );
+    public String matrixStats() throws IOException {
+        StringBuilder result = new StringBuilder("\nMatrix:\n");
 
         ArrayList<String> res_list = new ArrayList(matrix.keySet());
         Collections.sort(res_list);
-        for(int i = 1; i < doc_names.length + 1; i++){
-            out.write((i + " ").getBytes());
+        for(int i = 0; i < doc_names.length; i++){
+            result.append(i).append(" ");
         }
-        out.write(("\n").getBytes());
+        result.append("\n");
         for(String s: res_list){
             for(int i = 0; i < doc_names.length; i++){
-                out.write((matrix.get(s)[i] + " ").getBytes());
+                result.append(String.valueOf(matrix.get(s)[i])).append(" ");
             }
-            out.write((s+" " + "\n").getBytes());
+            result.append(s).append("\n");
         }
 
+        return result.toString();
     }
 
     //make size x2 bigger
@@ -192,7 +193,7 @@ public class Matrix {
 
     /**SAVE INTO MATRIX.TXT FILE*/
     public void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("matrix.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/results/matrix.txt"))) {
             ArrayList<String> res_list = new ArrayList<>(matrix.keySet());
             Collections.sort(res_list);
 
@@ -208,7 +209,7 @@ public class Matrix {
                 writer.write(s + " ");
                 writer.newLine();
             }
-            System.out.println("Matrix saved to matrix.txt");
+            System.out.println("Matrix saved to src/results/matrix.txt");
         } catch (IOException e) {
             System.out.println("Error saving matrix to file: " + e.getMessage());
             e.printStackTrace();
