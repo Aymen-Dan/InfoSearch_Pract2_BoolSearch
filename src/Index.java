@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,9 +38,8 @@ public class Index {
                 }
             }
         }
-
             // Save to file
-            saveToFile();
+            this.saveToFile();
     }
 
     //checking and adding words
@@ -159,23 +159,26 @@ public class Index {
     }
 
     /**PRINT OUT IN CONSOLE*/
-    public void print() {
+    public String indexStats() {
+        StringBuilder result = new StringBuilder("\nIndex:\n");
+
         ArrayList<String> res_list = new ArrayList<>(matrix.keySet());
         Collections.sort(res_list);
 
         for (String s : res_list) {
-            System.out.print(s + " ");
+            result.append(s).append(" ");
             for (int i = 0; i < matrix.get(s).size(); i++) {
                 int num = matrix.get(s).get(i) + 1;
-                System.out.print(num + " ");
+                result.append(num).append(" ");
             }
-            System.out.println();
+            result.append("\n");
         }
+        return result.toString();
     }
 
     /**SAVE INTO INDEX.TXT FILE*/
     public void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("index.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/results/index.txt"))) {
             ArrayList<String> res_list = new ArrayList<>(matrix.keySet());
             Collections.sort(res_list);
 
@@ -187,11 +190,34 @@ public class Index {
                 }
                 writer.newLine();
             }
-            System.out.println("Index saved to index.txt");
+
+            // Close the writer so the file appears imeadiately
+            writer.close();
+
+            System.out.println("Index saved to src/results/index.txt");
         } catch (IOException e) {
             System.out.println("Error saving index to file: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
+    /**OPEN AN INDEX.TXT FILE*/
+    public void openIndexTXT(String filePath) throws IOException {
+        File file = new File(filePath);
+
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            System.out.println("\nPulling up the file...");
+
+            if (file.exists()) {
+                desktop.open(file);
+            } else {
+                System.out.println("File not found: " + filePath + "; Please restart the program.");
+            }
+        } else {
+            System.out.println("Desktop is not supported.");
+        }
+    }
+
 
 }
