@@ -17,7 +17,7 @@ public class Main {
         long endTimeI = System.nanoTime();
         long elapsedTimeI = endTimeI - timeI;//final time it took
 
-        System.out.println("\n1 - Print matrix;\n2 - Print index;\n3.Show matrix in file;\n4 - Show index in file;\n5 - Show time for matrix and time for index;\n6 - Search matrix;\n7 - Search index;\n-1 - Exit\n");
+        System.out.println("\n1 - Print matrix;\n2 - Print index;\n3 - Show matrix in file;\n4 - Show index in file;\n5 - Show time for matrix and time for index;\n6 - Search matrix;\n7 - Search index;\n-1 - Exit\n");
         int i= in.nextInt();
 
         while(i!=-1) {
@@ -29,10 +29,9 @@ public class Main {
                     System.out.println(ind.indexStats());
                     break;
                 case 3:
-                    System.out.println("MATRIX FILE OPENING IN PROGRESS");
+                    m.openMatrixTXT("src/results/matrix.txt");
                     break;
                 case 4:
-                   // System.out.println("INDEX FILE OPENING IN PROGRESS");
                     ind.openIndexTXT("src/results/index.txt");
                     break;
                 case 5:
@@ -44,30 +43,24 @@ public class Main {
                     in.nextLine();
                     String input = in.nextLine();
                     byte[] res = m.search(input);
-                    System.out.printf(input+": ");
-                    print(res);
+                    System.out.printf("Term " + input + " is present in doc(s)? : ");
+                    Matrix.print(res);
                     break;
                 case 7:
                     System.out.println("Enter:");
                     in.nextLine();
                     input = in.nextLine();
                     ArrayList<Integer> res_list = ind.search(input);
-                    System.out.printf(input+": " + res_list + "\n");
+                    System.out.printf("Term " + input + " present in doc(s): " + res_list + "\n");
                     break;
                 default:
-                    System.out.println("Wrong format");
+                    System.out.println("No such option for this program.");
             }
-            System.out.println("\n1 - Print matrix;\n2 - Print index;\n3.Show matrix in file;\n4 - Show index in file;\n5 - Show time for matrix and time for index;\n6 - Search matrix;\n7 - Search index;\n-1 - Exit\n");
+            System.out.println("\n1 - Print matrix;\n2 - Print index;\n3 - Show matrix in file;\n4 - Show index in file;\n5 - Show time for matrix and time for index;\n6 - Search matrix;\n7 - Search index;\n-1 - Exit\n");
 
             i = in.nextInt();
         }
 
 
-    }
-    //print byte array
-    public static void print(byte[] res){
-        for(int i=0;i<res.length;i++)
-            System.out.print(res[i]+" ");
-        System.out.println();
     }
 }

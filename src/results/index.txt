@@ -1,8 +1,10 @@
-ham 1 2 
-hamlet 1 
-hamster 1 
-oce 1 
-ocelot 2 
-ocelots 2 
-othello 1 2 
-prince 2 
+Word     | Present in
+-------------------------------
+ham        Doc1 Doc2 
+hamlet        Doc1 
+hamster        Doc1 
+oce        Doc1 
+ocelot        Doc2 
+ocelots        Doc2 
+othello        Doc1 Doc2 
+prince        Doc2 

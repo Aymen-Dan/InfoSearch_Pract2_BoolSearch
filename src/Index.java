@@ -68,56 +68,81 @@ public class Index {
 
     //boolean search
     public ArrayList<Integer> search(String input) throws Exception {
+        // Convert input to lowercase and remove whitespaces
         input = input.toLowerCase();
         input = input.replaceAll("\\s+","");
 
+        // Define characters for logical operators
         char and = '&', or ='∨', not ='!';
+
+        // Validate the input format using a regular expression
         if(!input.matches("(("+not+")?[\\w]+((("+and+")|("+or+"))("+not+")?[\\w]+)*)"))
             throw new Exception("Incorrect format.");
 
+        // Split input into words and operators
         String [] words = input.split("(("+and+")|("+or+"))");
         String[] operators = input.split("[^&∨]");
         operators = check(operators);
 
+        // Initialize an array to store whether each word is negated
         byte [] nots = new byte [words.length];
-        for(int i=0;i < nots.length; i++){
-            if(words[i].charAt(0)==not){
+
+        // Identify negated words and remove the '!' symbol
+        for(int i=0; i < nots.length; i++){
+            if(words[i].charAt(0) == not){
                 words[i] = words[i].replaceAll("!","");
-                nots[i]=1;
+                nots[i] = 1;
             }
         }
 
+        // Initialize the result list with the documents containing the first word
         ArrayList<Integer> res = copy(matrix.get(words[0]));
-        if(res==null)res = new ArrayList();
-        if(nots[0]==1) res = swap(res);
+        if(res == null) {
+            res = new ArrayList();
+        }
+        // Apply negation if the first word is negated
+        if(nots[0] == 1) {
+            res = swap(res);
+        }
 
-        for(int i =1;i<words.length;i++){
-            if(res==null)res = new ArrayList();
+        // Iterate over the remaining words and apply logical operators
+        for(int i = 1; i < words.length; i++){
+            if(res == null) {
+                res = new ArrayList();
+            }
 
+            // Retrieve documents containing the current word
             ArrayList<Integer> temp = copy(matrix.get(words[i]));
-            if(temp==null)temp = new ArrayList();
+            if(temp == null) {
+                temp = new ArrayList();
+            }
 
+            // Initialize a list to store the result of the current operation
             ArrayList<Integer> ans = new ArrayList();
-            if(nots[i] ==1) temp = swap(temp);
+            // Apply negation if the current word is negated
+            if(nots[i] == 1) {
+                temp = swap(temp);
+            }
 
+            // Apply logical AND or OR based on the operator
             if(operators[i-1].equals("&")){
-
                 for(int j : res){
                     if(temp.contains(j)) ans.add(j);
                 }
-                res=ans;
-            }
-            else if (operators[i-1].equals("∨")){
-
+                res = ans;
+            } else if (operators[i-1].equals("∨")){
                 for(int j : res){
                     ans.add(j);
                 }
-
                 for(int j : temp){
                     if(!ans.contains(j)) ans.add(j);
                 }
-                res=ans;
+                res = ans;
             }
+        }
+        //just to make the result more readable
+        for (int i = 0; i < res.size(); i++) {
+            res.set(i, res.get(i) + 1);
         }
         return res;
     }
@@ -176,22 +201,31 @@ public class Index {
         return result.toString();
     }
 
+
     /**SAVE INTO INDEX.TXT FILE*/
     public void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/results/index.txt"))) {
             ArrayList<String> res_list = new ArrayList<>(matrix.keySet());
             Collections.sort(res_list);
 
+            writer.write("Word     | ");
+
+                writer.write("Present in"); //header of the file
+
+            writer.newLine();
+            writer.write("-------------------------------");
+            writer.newLine();
+
             for (String s : res_list) {
-                writer.write(s + " ");
+                writer.write(s + "        ");//word
                 for (int i = 0; i < matrix.get(s).size(); i++) {
                     int num = matrix.get(s).get(i) + 1;
-                    writer.write(num + " ");
+                    writer.write("Doc" + num + " ");//
                 }
                 writer.newLine();
             }
 
-            // Close the writer so the file appears imeadiately
+            // Close the writer so the file appears immediately
             writer.close();
 
             System.out.println("Index saved to src/results/index.txt");

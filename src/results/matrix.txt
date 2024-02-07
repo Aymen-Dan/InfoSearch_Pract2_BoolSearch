@@ -1,9 +1,10 @@
-1 2 
-1 1 ham 
-1 0 hamlet 
-1 0 hamster 
-1 0 oce 
-0 1 ocelot 
-0 1 ocelots 
-1 1 othello 
-0 1 prince 
+Doc1 | Doc2 | word
+-------------------------------
+1    | 1    | ham 
+1    | 0    | hamlet 
+1    | 0    | hamster 
+1    | 0    | oce 
+0    | 1    | ocelot 
+0    | 1    | ocelots 
+1    | 1    | othello 
+0    | 1    | prince 

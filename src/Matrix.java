@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.*;
 import java.util.*;
 
@@ -198,17 +199,25 @@ public class Matrix {
             Collections.sort(res_list);
 
             for (int i = 1; i < doc_names.length + 1; i++) {
-                writer.write(i + " ");
+                writer.write("Doc" + i + " | ");//header of the file
             }
+            writer.write("word");
+            writer.newLine();
+            writer.write("-------------------------------");
             writer.newLine();
 
             for (String s : res_list) {
                 for (int i = 0; i < doc_names.length; i++) {
-                    writer.write(matrix.get(s)[i] + " ");
+                    writer.write(matrix.get(s)[i] + "    | ");//y or no
                 }
-                writer.write(s + " ");
+                writer.write(s + " ");//word
                 writer.newLine();
             }
+
+
+            // Close the writer so the file appears immediately
+            writer.close();
+
             System.out.println("Matrix saved to src/results/matrix.txt");
         } catch (IOException e) {
             System.out.println("Error saving matrix to file: " + e.getMessage());
@@ -216,5 +225,29 @@ public class Matrix {
         }
     }
 
+    /**OPEN A MATRIX.TXT FILE*/
+    public void openMatrixTXT(String filePath) throws IOException {
+        File file = new File(filePath);
+
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            System.out.println("\nPulling up the file...");
+
+            if (file.exists()) {
+                desktop.open(file);
+            } else {
+                System.out.println("File not found: " + filePath + "; Please restart the program.");
+            }
+        } else {
+            System.out.println("Desktop is not supported.");
+        }
+    }
+
+
+    public static void print(byte[] res) {
+        for (int i = 0; i < res.length; i++)
+            System.out.print(res[i] + " ");
+        System.out.println();
+    }
 }
 
