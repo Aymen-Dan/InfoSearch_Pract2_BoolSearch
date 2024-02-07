@@ -20,6 +20,7 @@ public class Matrix {
         }
 
         File[] files = dir.listFiles();
+        assert files != null;
         init_capacity = files.length;
 
         int doc = -1;
@@ -51,9 +52,9 @@ public class Matrix {
     public void addWords(int doc, String line){
         if(line.equals("")) return;
         String[] temp = line.split("[^a-zA-Z0-9_]+");
-        for(int i=0;i<temp.length;i++){
-            if(temp[i].matches("[a-zA-Z0-9_]+")) {
-                addWord(temp[i].toLowerCase(),doc);
+        for (String s : temp) {
+            if (s.matches("[a-zA-Z0-9_]+")) {
+                addWord(s.toLowerCase(), doc);
             }
         }
     }
@@ -77,7 +78,7 @@ public class Matrix {
     }
 
     //to string
-    public String matrixStats() throws IOException {
+    public String matrixStats() {
         StringBuilder result = new StringBuilder("\nMatrix:\n");
 
         ArrayList<String> res_list = new ArrayList(matrix.keySet());
@@ -100,9 +101,7 @@ public class Matrix {
     private void resize(byte[] arr) {
         byte[] temp = new byte[arr.length*2];
 
-        for (int i = 0; i < arr.length; i++) {
-            temp[i] = arr[i];
-        }
+        System.arraycopy(arr, 0, temp, 0, arr.length);
         arr = temp;
     }
 
@@ -161,11 +160,11 @@ public class Matrix {
 
     //checking if operators are ok
     private String [] check(String [] arr){
-        ArrayList<String> temp=new ArrayList();
-        int j=0;
-        for(int i=0;i<arr.length;i++){
-            if(arr[i].equals("&") || arr[i].equals("∨")){
-                temp.add(j,arr[i]);
+        ArrayList<String> temp = new ArrayList();
+        int j = 0;
+        for (String s : arr) {
+            if (s.equals("&") || s.equals("∨")) {
+                temp.add(j, s);
                 j++;
             }
         }
@@ -185,9 +184,7 @@ public class Matrix {
 
     private byte[] copy(byte[] arr){
         byte [] res = new byte[arr.length];
-        for(int i=0;i<arr.length;i++){
-            res[i] = arr[i];
-        }
+        System.arraycopy(arr, 0, res, 0, arr.length);
         return res;
     }
 
@@ -245,8 +242,7 @@ public class Matrix {
 
 
     public static void print(byte[] res) {
-        for (int i = 0; i < res.length; i++)
-            System.out.print(res[i] + " ");
+        for (byte re : res) System.out.print(re + " ");
         System.out.println();
     }
 }
